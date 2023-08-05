@@ -202,33 +202,32 @@ try:
         match = Match(team_a, team_b, field)
         match.start_match()
 
+    def create_team(name):
+        team = Teams(name)
+        num_players = int(input(f"Enter the number of players for {name}: "))
+        for _ in range(num_players):
+            player_name = input(f"Enter player name: ")
+            player_batting = float(input(f"Enter batting rating (0.0 - 1.0): "))
+            player_bowling = float(input(f"Enter bowling rating (0.0 - 1.0): "))
+            player_fielding = float(input(f"Enter fielding rating (0.0 - 1.0): "))
+            player_running = float(input(f"Enter running rating (0.0 - 1.0): "))
+            player_experience = float(input(f"Enter experience rating (0.0 - 1.0): "))
+            team.add_player(Player(player_name, player_batting, player_bowling, player_fielding, player_running, player_experience))
+        return team
+
     def main():
-        logging.info(f"Create Sample PLayers")
-        player1 = Player("MS Dhoni", 0.8, 0.2, 0.99, 0.8, 0.9)
-        player2 = Player("Virat Kohli", 0.9, 0.1, 0.95, 0.85, 0.95)
-        player3 = Player("Jasprit Bumrah", 0.1, 0.9, 0.8, 0.7, 0.85)
-        player4 = Player("Hardik Pandya", 0.5, 0.3, 0.89, 0.7, 0.2)
-        player5 = Player("Sachin Tendulkar", 0.5, 0.1, 0.96, 0.75, 0.15)
-        player6 = Player("Rohit Sharma", 0.1, 0.93, 0.8, 0.75, 0.35)
-        
-        logging.info(f"Create sample teams")
-        team_a = Teams("Team A")
-        team_a.players = [player1, player2, player3]
-        team_a.batting_order = [player1, player2]
-        logging.info(f"set batting order and bowlers for Team A")
+        match_format = input("Enter match format (T20, ODI, Test): ")
+        field_size = float(input("Enter field size (0.0 - 1.0): "))
+        fan_ratio = float(input("Enter fan ratio (0.0 - 1.0): "))
+        pitch_conditions = float(input("Enter pitch conditions (0.0 - 1.0): "))
+        home_advantage = float(input("Enter home advantage (0.0 - 1.0): "))
+        team_a = create_team("Team A")
+        team_b = create_team("Team B")
 
-        team_b = Teams("Team B")
-        team_b.players = [player4, player5, player6]
-        team_b.batting_order = [player4, player5]
-        logging.info(f"set batting order and bowlers for Team B")
-       
+        field = Field(field_size, fan_ratio, pitch_conditions, home_advantage)
 
-        logging.info(f"create sample field")
-        field = Field("medium", 0.7, "dry", 1.1)
-
-        
-        logging.info(f" Start the match simulation")
         simulate_match(team_a, team_b, field)
+   
 
     if __name__ == "__main__":
         main()
